@@ -11,8 +11,8 @@
 * 예시: `session1/subin`, `session2/jiyoung`
 
 
-* **🌟 공통 프로젝트 작업용:** `feat/compose-auth/본인이름_작업내용`
-* 예시: `feat/compose-auth/subin_login_ui`, `feat/compose-auth/jiyoung_room_db`
+* **🌟 공통 프로젝트 작업용:** `feat/compose-auth/본인이름`
+* 예시: `feat/compose-auth/subin`, `feat/compose-auth/jiyoung`
 
 
 * **개인 프로젝트 작업용:** `feat/프로젝트명/작업내용`

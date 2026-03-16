@@ -21,3 +21,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "ComposeAuth_Jeongmoon"
 include(":app")
+include(":features")
+include(":features:auth")
+include(":core")
+include(":core:ui")
+include(":data")
+include(":domain")

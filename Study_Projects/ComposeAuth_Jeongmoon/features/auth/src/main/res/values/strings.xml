@@ -1,0 +1,18 @@
+<resources>
+    <string name="splash_message">Android Study</string>
+    <string name="login">로그인</string>
+    <string name="member_create">회원 가입</string>
+    <string name="nick_name">닉네임</string>
+    <string name="welcome_screen">환영 합니다!</string>
+    <string name="welcome_message">로그인 or 회원 가입</string>
+    <string name="nick_name_input">닉네임을 입력하세요</string>
+    <string name="email">이메일</string>
+    <string name="sample_email">sasac@sesac.kr</string>
+    <string name="password">패스워드</string>
+    <string name="password_input">패스워드 입력</string>
+    <string name="member_insert">회원가입</string>
+    <string name="auto_login">자동 로그인</string>
+    <string name="no_account_yet">회원 가입 후 로그인</string>
+    <string name="login_desc">로그인</string>
+    <string name="login_desc_membership">가입 축하! 로그인</string>
+</resources>

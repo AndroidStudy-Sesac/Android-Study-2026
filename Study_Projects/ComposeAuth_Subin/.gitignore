@@ -1,0 +1,41 @@
+# ==========================================
+# 🚀 Android & Kotlin Study 통합 .gitignore
+# ==========================================
+
+# 1. 빌드 폴더 및 Gradle 캐시 (가장 용량이 크고 충돌이 잦음!)
+build/
+.gradle/
+*/build/
+*/*/build/
+*/*/*/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# 2. 로컬 설정 파일 (각자의 컴퓨터 SDK 경로가 적혀있어 올라가면 에러남)
+local.properties
+
+# 3. Android Studio / IntelliJ IDEA 설정 파일
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# 4. OS (맥/윈도우) 시스템 생성 파일
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 5. 앱 결과물 (APK, AAB) 및 로그
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+*.log
+
+# 6. 보안 파일 (Keystore - 절대 깃허브에 올라가면 안 됨!)
+*.jks
+*.keystore

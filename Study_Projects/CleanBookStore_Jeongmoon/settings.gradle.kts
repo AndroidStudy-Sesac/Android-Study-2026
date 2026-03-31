@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "CleanBookStore_Jeongmoon"
 include(":app")
+include(":domain")
+include(":data")

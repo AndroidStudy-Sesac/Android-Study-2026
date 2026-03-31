@@ -90,6 +90,7 @@ activityCompose = { group = "androidx.activity", name = "activity-compose", vers
 navigationCompose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 coilCompose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 collapsingToolbar = { module = "me.onebone:toolbar-compose", version.ref = "composeCollapsingToolbar" }
+composeMaterialIconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
 
 # JUnit4
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
@@ -137,6 +138,7 @@ composeUi = [
     "composeUiGraphics",
     "composeUiPreview",
     "composeMaterial3",
+    "composeMaterialIconsExtended",
     "activityCompose",
     "navigationCompose",
     "coilCompose",

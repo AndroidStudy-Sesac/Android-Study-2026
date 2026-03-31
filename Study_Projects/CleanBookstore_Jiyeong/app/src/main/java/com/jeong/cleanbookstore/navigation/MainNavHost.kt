@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.jeong.cleanbookstore.screen.main.search.SearchScreen
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
@@ -29,9 +30,18 @@ fun MainNavHost(
             )
         }
         composable(Route.Search.route) {
-            PlaceholderScreen(
-                text = "Search Screen",
-                innerPadding = innerPadding,
+            SearchScreen(
+                paddingValues = innerPadding,
+                onBookClick = { book ->
+                    navController.navigate(
+                        Route.Detail.createRoute(
+                            bookId = book.id,
+                            title = book.title,
+                        ),
+                    )
+                },
+                onLikeClick = {
+                },
             )
         }
         composable(Route.Bookmark.route) {

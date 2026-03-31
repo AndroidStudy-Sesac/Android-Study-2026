@@ -18,6 +18,9 @@ ksp = "2.2.0-2.0.2"
 # coroutine
 coroutines = "1.10.2"
 
+# Room-DB
+room = "2.7.2"
+
 composeBom = "2026.03.01"
 appcompat = "1.7.1"
 material = "1.13.0"
@@ -49,6 +52,11 @@ androidx-material-icons-extended = { group = "androidx.compose.material", name =
 # coroutine
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 
+# Room-DB
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
@@ -73,4 +81,9 @@ compose-libs = [
     "androidx-compose-material3",
     "androidx-navigation-compose",
     "androidx-material-icons-extended",
+]
+
+room-libraries = [
+    "androidx-room-ktx",
+    "androidx-room-runtime"
 ]

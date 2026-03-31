@@ -36,9 +36,17 @@ kotlin {
 }
 
 dependencies {
+    implementation(project(":domain"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+
+    implementation(libs.bundles.room.libraries)
+    ksp(libs.androidx.room.compiler){
+        exclude(group = "com.intellij", module = "annotations")
+    }
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

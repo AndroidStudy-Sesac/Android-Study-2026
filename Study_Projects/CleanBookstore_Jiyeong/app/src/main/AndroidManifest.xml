@@ -13,6 +13,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CleanBookstore"
-        android:name=".CleanBookstoreApp"/>
+        android:name="com.jeong.cleanbookstore.CleanBookstoreApp"/>
 
 </manifest>

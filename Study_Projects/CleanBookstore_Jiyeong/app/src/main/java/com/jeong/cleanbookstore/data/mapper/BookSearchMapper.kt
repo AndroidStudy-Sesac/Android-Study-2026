@@ -13,9 +13,11 @@ fun BookItemResponse.toModel(): BookModel =
         publisher = volumeInfo.publisher,
         publishedDate = volumeInfo.publishedDate,
         description = volumeInfo.description,
-        thumbnail = volumeInfo.imageLinks?.thumbnail,
-        previewLink = volumeInfo.previewLink,
-        infoLink = volumeInfo.infoLink,
+        thumbnail = volumeInfo.imageLinks?.thumbnail.toHttps(),
+        previewLink = volumeInfo.previewLink.toHttps(),
+        infoLink = volumeInfo.infoLink.toHttps(),
     )
 
 fun BookSearchResultResponse.toModelList(): List<BookModel> = items?.map { it.toModel() } ?: emptyList()
+
+private fun String?.toHttps(): String? = this?.replace("http://", "https://")

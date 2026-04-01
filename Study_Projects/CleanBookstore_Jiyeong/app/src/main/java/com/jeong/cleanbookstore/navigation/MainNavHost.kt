@@ -9,8 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.jeong.cleanbookstore.screen.detail.BookDetailScreen
 import com.jeong.cleanbookstore.screen.main.search.SearchScreen
 
 @Suppress("ktlint:standard:function-naming")
@@ -48,6 +51,22 @@ fun MainNavHost(
             PlaceholderScreen(
                 text = "Bookmark Screen",
                 innerPadding = innerPadding,
+            )
+        }
+        composable(
+            Route.Detail.route,
+            arguments =
+                listOf(
+                    navArgument("bookId") {
+                        type = NavType.StringType
+                    },
+                    navArgument("title") {
+                        type = NavType.StringType
+                    },
+                ),
+        ) {
+            BookDetailScreen(
+                onBackClick = { navController.popBackStack() },
             )
         }
     }

@@ -1,5 +1,6 @@
 package com.jeong.cleanbookstore.data.repository
 
+import com.jeong.cleanbookstore.model.book.BookDetailModel
 import com.jeong.cleanbookstore.model.book.BookModel
 
 interface BookSearchRepository {
@@ -8,4 +9,6 @@ interface BookSearchRepository {
         startIndex: Int = 0,
         maxResults: Int = 20,
     ): List<BookModel>
+
+    suspend fun getBookDetail(volumeId: String): BookDetailModel
 }

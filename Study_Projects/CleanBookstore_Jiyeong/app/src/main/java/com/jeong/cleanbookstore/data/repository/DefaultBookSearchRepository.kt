@@ -1,7 +1,9 @@
 package com.jeong.cleanbookstore.data.repository
 
 import com.jeong.cleanbookstore.data.di.api.BooksApiService
+import com.jeong.cleanbookstore.data.mapper.toDetailModel
 import com.jeong.cleanbookstore.data.mapper.toModelList
+import com.jeong.cleanbookstore.model.book.BookDetailModel
 import com.jeong.cleanbookstore.model.book.BookModel
 import javax.inject.Inject
 
@@ -21,6 +23,15 @@ class DefaultBookSearchRepository
             }
             val body = response.body() ?: throw Exception("검색 결과를 불러오지 못했습니다.")
             return body.toModelList()
+        }
+
+        override suspend fun getBookDetail(volumeId: String): BookDetailModel {
+            val response = booksApiService.getBookDetail(volumeId)
+            if (!response.isSuccessful) {
+                throw Exception(getErrorMessage(response.code()))
+            }
+            val body = response.body() ?: throw Exception("도서 상세 정보를 불러오지 못했습니다.")
+            return body.toDetailModel()
         }
 
         private fun getErrorMessage(code: Int): String =

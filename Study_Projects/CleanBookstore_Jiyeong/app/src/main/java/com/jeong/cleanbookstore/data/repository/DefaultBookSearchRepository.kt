@@ -20,7 +20,7 @@ class DefaultBookSearchRepository
                 throw Exception(getErrorMessage(response.code()))
             }
             val body = response.body() ?: throw Exception("검색 결과를 불러오지 못했습니다.")
-            return body?.toModelList() ?: emptyList()
+            return body.toModelList()
         }
 
         private fun getErrorMessage(code: Int): String =

@@ -26,7 +26,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Suppress("ktlint:standard:function-naming")
 @Composable
 fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
     val navController = rememberNavController()

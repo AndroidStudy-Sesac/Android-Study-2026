@@ -100,7 +100,6 @@ fun BookDetailScreen(
     }
 }
 
-@Suppress("ktlint:standard:function-naming")
 @Composable
 private fun LoadingContent(innerPadding: PaddingValues) {
     Box(

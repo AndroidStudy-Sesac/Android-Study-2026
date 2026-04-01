@@ -38,7 +38,6 @@ import com.jeong.cleanbookstore.model.book.BookModel
 import com.jeong.cleanbookstore.ui.theme.CleanBookstoreTheme
 import com.jeong.cleanbookstore.widget.item.BookItem
 
-@Suppress("ktlint:standard:function-naming")
 @Composable
 fun SearchScreen(
     viewModel: SearchTabViewModel = hiltViewModel(),
@@ -70,7 +69,6 @@ fun SearchScreen(
     )
 }
 
-@Suppress("ktlint:standard:function-naming")
 @Composable
 private fun SearchContent(
     state: SearchTabState,
@@ -150,7 +148,6 @@ private fun SearchContent(
     }
 }
 
-@Suppress("ktlint:standard:function-naming")
 @Composable
 private fun SearchResultList(
     books: List<BookModel>,
@@ -175,7 +172,6 @@ private fun SearchResultList(
     }
 }
 
-@Suppress("ktlint:standard:function-naming")
 @Composable
 private fun LoadingContent() {
     Box(
@@ -186,7 +182,6 @@ private fun LoadingContent() {
     }
 }
 
-@Suppress("ktlint:standard:function-naming")
 @Composable
 private fun ErrorContent(message: String) {
     Box(
@@ -200,7 +195,6 @@ private fun ErrorContent(message: String) {
     }
 }
 
-@Suppress("ktlint:standard:function-naming")
 @Composable
 private fun EmptyStateMessage(message: String) {
     Box(
@@ -214,7 +208,6 @@ private fun EmptyStateMessage(message: String) {
     }
 }
 
-@Suppress("ktlint:standard:function-naming")
 @Preview(showBackground = true, name = "Success State")
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Success State - Dark")
 @Composable
@@ -264,7 +257,6 @@ private fun SearchScreenSuccessPreview() {
     }
 }
 
-@Suppress("ktlint:standard:function-naming")
 @Preview(showBackground = true, name = "Loading State")
 @Composable
 private fun SearchScreenLoadingPreview() {
@@ -281,7 +273,6 @@ private fun SearchScreenLoadingPreview() {
     }
 }
 
-@Suppress("ktlint:standard:function-naming")
 @Preview(showBackground = true, name = "Error State")
 @Composable
 private fun SearchScreenErrorPreview() {
@@ -298,7 +289,6 @@ private fun SearchScreenErrorPreview() {
     }
 }
 
-@Suppress("ktlint:standard:function-naming")
 @Preview(showBackground = true, name = "Empty Result State")
 @Composable
 private fun SearchScreenEmptyPreview() {

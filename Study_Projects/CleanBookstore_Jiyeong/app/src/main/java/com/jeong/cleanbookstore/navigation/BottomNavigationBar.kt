@@ -16,7 +16,6 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 
-@Suppress("ktlint:standard:function-naming")
 @Composable
 fun BottomNavigationBar(
     bottomNavItems: List<BottomNavItem>,
@@ -39,7 +38,6 @@ fun BottomNavigationBar(
     }
 }
 
-@Suppress("ktlint:standard:function-naming")
 @Composable
 private fun RowScope.NavigationTabItem(
     selected: Boolean,

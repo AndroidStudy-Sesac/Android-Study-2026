@@ -32,8 +32,6 @@ private val LightColorScheme =
     onSurface = Color(0xFF1C1B1F),
      */
     )
-
-@Suppress("ktlint:standard:function-naming")
 @Composable
 fun CleanBookstoreTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

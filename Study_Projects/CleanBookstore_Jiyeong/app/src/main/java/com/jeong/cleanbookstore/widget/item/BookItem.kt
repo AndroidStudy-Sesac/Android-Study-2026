@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -35,7 +34,6 @@ import coil.request.ImageRequest
 import com.jeong.cleanbookstore.model.book.BookModel
 import com.jeong.cleanbookstore.ui.theme.CleanBookstoreTheme
 
-@Suppress("ktlint:standard:function-naming")
 @Composable
 fun BookItem(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -155,7 +153,6 @@ fun BookItem(
     }
 }
 
-@Suppress("ktlint:standard:function-naming")
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable

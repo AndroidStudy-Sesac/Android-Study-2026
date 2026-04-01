@@ -16,7 +16,6 @@ import androidx.navigation.navArgument
 import com.jeong.cleanbookstore.screen.detail.BookDetailScreen
 import com.jeong.cleanbookstore.screen.main.search.SearchScreen
 
-@Suppress("ktlint:standard:function-naming")
 @Composable
 fun MainNavHost(
     navController: NavHostController,
@@ -72,7 +71,6 @@ fun MainNavHost(
     }
 }
 
-@Suppress("ktlint:standard:function-naming")
 @Composable
 fun PlaceholderScreen(
     text: String,

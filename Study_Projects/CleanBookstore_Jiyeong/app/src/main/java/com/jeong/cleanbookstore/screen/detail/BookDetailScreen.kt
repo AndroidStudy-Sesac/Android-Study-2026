@@ -3,6 +3,8 @@ package com.jeong.cleanbookstore.screen.detail
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,9 +38,9 @@ import com.jeong.cleanbookstore.ui.component.ErrorContent
 import com.jeong.cleanbookstore.ui.component.LoadingContent
 import com.jeong.cleanbookstore.ui.theme.CleanBookstoreTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookDetailScreen(
+    paddingValues: PaddingValues,
     viewModel: BookDetailViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
 ) {
@@ -51,6 +54,7 @@ fun BookDetailScreen(
 
     BookDetailContent(
         state = state,
+        paddingValues = paddingValues,
         onBackClick = onBackClick,
         onRetry = viewModel::fetchData,
     )
@@ -60,10 +64,12 @@ fun BookDetailScreen(
 @Composable
 private fun BookDetailContent(
     state: BookDetailState,
+    paddingValues: PaddingValues,
     onBackClick: () -> Unit,
     onRetry: () -> Unit,
 ) {
     Scaffold(
+        modifier = Modifier.padding(paddingValues),
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
@@ -120,13 +126,17 @@ private fun DetailContent(
     innerPadding: PaddingValues,
 ) {
     val book = state.book
+    val layoutDirection = LocalLayoutDirection.current
 
     LazyColumn(
-        modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
-        contentPadding = PaddingValues(16.dp),
+        modifier = Modifier.fillMaxSize(),
+        contentPadding =
+            PaddingValues(
+                start = innerPadding.calculateStartPadding(layoutDirection) + 16.dp,
+                top = innerPadding.calculateTopPadding() + 16.dp,
+                end = innerPadding.calculateEndPadding(layoutDirection) + 16.dp,
+                bottom = innerPadding.calculateBottomPadding() + 32.dp,
+            ),
     ) {
         item {
             AsyncImage(
@@ -223,6 +233,7 @@ private fun DetailContent(
                     text = book.description,
                     style = MaterialTheme.typography.bodyMedium,
                 )
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }
@@ -257,6 +268,7 @@ private fun BookDetailScreenSuccessPreview() {
     CleanBookstoreTheme {
         BookDetailContent(
             state = BookDetailState.Success(book = sampleBook),
+            paddingValues = PaddingValues(),
             onBackClick = {},
             onRetry = {},
         )
@@ -269,6 +281,7 @@ private fun BookDetailScreenLoadingPreview() {
     CleanBookstoreTheme {
         BookDetailContent(
             state = BookDetailState.Loading,
+            paddingValues = PaddingValues(),
             onBackClick = {},
             onRetry = {},
         )
@@ -281,6 +294,7 @@ private fun BookDetailScreenErrorPreview() {
     CleanBookstoreTheme {
         BookDetailContent(
             state = BookDetailState.Error(message = "Failed to load book details."),
+            paddingValues = PaddingValues(),
             onBackClick = {},
             onRetry = {},
         )

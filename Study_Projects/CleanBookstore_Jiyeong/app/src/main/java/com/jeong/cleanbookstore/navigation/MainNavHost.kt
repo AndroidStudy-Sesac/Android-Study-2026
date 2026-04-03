@@ -65,6 +65,7 @@ fun MainNavHost(
                 ),
         ) {
             BookDetailScreen(
+                paddingValues = innerPadding,
                 onBackClick = { navController.popBackStack() },
             )
         }

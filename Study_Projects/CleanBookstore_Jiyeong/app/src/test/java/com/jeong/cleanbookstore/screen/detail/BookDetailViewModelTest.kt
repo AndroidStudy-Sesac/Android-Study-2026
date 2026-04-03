@@ -66,12 +66,12 @@ class BookDetailViewModelTest {
                 )
 
             val savedStateHandle = SavedStateHandle(mapOf("bookId" to bookId))
-            
+
             // coAnswers와 delay를 사용하여 Loading 상태가 수집될 시간을 확보함
             coEvery {
                 bookSearchRepository.getBookDetail(volumeId = bookId)
             } coAnswers {
-                delay(1) 
+                delay(1)
                 detailModel
             }
 
@@ -83,14 +83,20 @@ class BookDetailViewModelTest {
 
             // When & Then
             val states = mutableListOf<BookDetailState>()
-            val collectJob = launch(UnconfinedTestDispatcher()) {
-                viewModel.stateFlow.collect { states.add(it) }
-            }
+            val collectJob =
+                launch(UnconfinedTestDispatcher()) {
+                    viewModel.stateFlow.collect { states.add(it) }
+                }
 
             viewModel.fetchData().join()
 
             assertAll(
-                { assertTrue(states.contains(BookDetailState.Loading), "Loading 상태를 거쳐야 합니다. (수집된 상태들: $states)") },
+                {
+                    assertTrue(
+                        states.contains(BookDetailState.Loading),
+                        "Loading 상태를 거쳐야 합니다. (수집된 상태들: $states)",
+                    )
+                },
                 { assertTrue(states.last() is BookDetailState.Success, "마지막 상태는 Success여야 합니다.") },
                 {
                     val successState = states.last() as BookDetailState.Success
@@ -109,7 +115,7 @@ class BookDetailViewModelTest {
             val bookId = "book-1"
             val errorMessage = "도서 상세 정보를 불러오지 못했습니다."
             val savedStateHandle = SavedStateHandle(mapOf("bookId" to bookId))
-            
+
             coEvery {
                 bookSearchRepository.getBookDetail(volumeId = bookId)
             } throws IllegalStateException(errorMessage)

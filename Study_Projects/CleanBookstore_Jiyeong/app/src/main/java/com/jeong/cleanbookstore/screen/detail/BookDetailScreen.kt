@@ -1,5 +1,6 @@
 package com.jeong.cleanbookstore.screen.detail
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,11 +30,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.jeong.cleanbookstore.model.book.BookDetailModel
+import com.jeong.cleanbookstore.ui.theme.CleanBookstoreTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,13 +53,27 @@ fun BookDetailScreen(
         }
     }
 
+    BookDetailContent(
+        state = state,
+        onBackClick = onBackClick,
+        onRetry = viewModel::fetchData,
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun BookDetailContent(
+    state: BookDetailState,
+    onBackClick: () -> Unit,
+    onRetry: () -> Unit,
+) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
                     val title =
-                        when (val currentState = state) {
-                            is BookDetailState.Success -> currentState.book.title
+                        when (state) {
+                            is BookDetailState.Success -> state.book.title
                             else -> "Book Detail"
                         }
                     Text(
@@ -75,7 +93,7 @@ fun BookDetailScreen(
             )
         },
     ) { innerPadding ->
-        when (val currentState = state) {
+        when (state) {
             is BookDetailState.Uninitialized,
             is BookDetailState.Loading,
             -> {
@@ -84,16 +102,16 @@ fun BookDetailScreen(
 
             is BookDetailState.Success -> {
                 DetailContent(
-                    state = currentState,
+                    state = state,
                     innerPadding = innerPadding,
                 )
             }
 
             is BookDetailState.Error -> {
                 ErrorContent(
-                    message = currentState.message,
+                    message = state.message,
                     innerPadding = innerPadding,
-                    onRetry = viewModel::fetchData,
+                    onRetry = onRetry,
                 )
             }
         }
@@ -250,5 +268,64 @@ private fun DetailContent(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true, name = "Success State")
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "Success State - Dark",
+)
+@Composable
+private fun BookDetailScreenSuccessPreview() {
+    val sampleBook =
+        BookDetailModel(
+            id = "1",
+            title = "Jetpack Compose Essentials",
+            subtitle = "Modern Android UI Development",
+            authors = listOf("John Doe", "Jane Doe"),
+            publisher = "Sample Publisher",
+            publishedDate = "2025-01-01",
+            description =
+                "This is a comprehensive guide to building modern Android UIs using Jetpack Compose. " +
+                    "It covers everything from basic components to advanced layouts and animations.",
+            thumbnail = null,
+            previewLink = null,
+            infoLink = null,
+            pageCount = 350,
+            categories = listOf("Technology", "Programming"),
+        )
+
+    CleanBookstoreTheme {
+        BookDetailContent(
+            state = BookDetailState.Success(book = sampleBook),
+            onBackClick = {},
+            onRetry = {},
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Loading State")
+@Composable
+private fun BookDetailScreenLoadingPreview() {
+    CleanBookstoreTheme {
+        BookDetailContent(
+            state = BookDetailState.Loading,
+            onBackClick = {},
+            onRetry = {},
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Error State")
+@Composable
+private fun BookDetailScreenErrorPreview() {
+    CleanBookstoreTheme {
+        BookDetailContent(
+            state = BookDetailState.Error(message = "Failed to load book details."),
+            onBackClick = {},
+            onRetry = {},
+        )
     }
 }

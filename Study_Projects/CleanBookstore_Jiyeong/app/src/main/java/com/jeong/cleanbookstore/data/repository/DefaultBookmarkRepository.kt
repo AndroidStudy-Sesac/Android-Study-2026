@@ -5,6 +5,7 @@ import com.jeong.cleanbookstore.data.mapper.toBookmarkEntity
 import com.jeong.cleanbookstore.data.mapper.toModel
 import com.jeong.cleanbookstore.model.book.BookModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -24,4 +25,11 @@ class DefaultBookmarkRepository
         override suspend fun removeBookmark(id: String) {
             bookmarkDao.delete(id)
         }
+
+        override suspend fun getBookmarkIds(): Set<String> =
+            bookmarkDao
+                .getAll()
+                .first()
+                .map { it.id }
+                .toSet()
     }

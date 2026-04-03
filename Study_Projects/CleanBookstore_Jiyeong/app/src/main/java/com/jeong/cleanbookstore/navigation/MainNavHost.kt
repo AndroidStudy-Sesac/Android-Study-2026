@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.jeong.cleanbookstore.screen.detail.BookDetailScreen
+import com.jeong.cleanbookstore.screen.main.bookmark.BookmarkScreen
 import com.jeong.cleanbookstore.screen.main.search.SearchScreen
 
 @Composable
@@ -42,14 +43,19 @@ fun MainNavHost(
                         ),
                     )
                 },
-                onLikeClick = {
-                },
             )
         }
         composable(Route.Bookmark.route) {
-            PlaceholderScreen(
-                text = "Bookmark Screen",
-                innerPadding = innerPadding,
+            BookmarkScreen(
+                paddingValues = innerPadding,
+                onBookClick = { book ->
+                    navController.navigate(
+                        Route.Detail.createRoute(
+                            bookId = book.id,
+                            title = book.title,
+                        ),
+                    )
+                },
             )
         }
         composable(

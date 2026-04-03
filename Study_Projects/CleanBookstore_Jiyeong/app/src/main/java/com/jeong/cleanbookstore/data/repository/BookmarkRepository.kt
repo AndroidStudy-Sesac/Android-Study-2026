@@ -11,4 +11,6 @@ interface BookmarkRepository {
     suspend fun addBookmark(book: BookModel)
 
     suspend fun removeBookmark(id: String)
+
+    suspend fun getBookmarkIds(): Set<String>
 }

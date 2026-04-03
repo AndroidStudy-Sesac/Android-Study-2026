@@ -42,7 +42,6 @@ fun SearchScreen(
     viewModel: SearchTabViewModel = hiltViewModel(),
     paddingValues: PaddingValues = PaddingValues(),
     onBookClick: (BookModel) -> Unit = {},
-    onLikeClick: (BookModel) -> Unit = {},
 ) {
     val state by viewModel.stateFlow.collectAsStateWithLifecycle()
     var searchQuery by rememberSaveable { mutableStateOf("") }
@@ -64,7 +63,7 @@ fun SearchScreen(
             keyboardController?.hide()
         },
         onBookClick = onBookClick,
-        onLikeClick = onLikeClick,
+        onLikeClick = { book -> viewModel.toggleBookmark(book) },
     )
 }
 

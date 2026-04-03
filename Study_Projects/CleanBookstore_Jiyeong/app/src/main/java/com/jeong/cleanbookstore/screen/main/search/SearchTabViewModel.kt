@@ -23,6 +23,7 @@ class SearchTabViewModel
 
         private var lastQuery: String = ""
         private var rawSearchBooks: List<BookModel> = emptyList()
+        private var bookmarkedIds: Set<String> = emptySet()
 
         init {
             observeBookmarks()
@@ -69,9 +70,7 @@ class SearchTabViewModel
         fun toggleBookmark(book: BookModel) {
             viewModelScope.launch {
                 try {
-                    val isBookmarked = book.isLiked == true
-
-                    if (isBookmarked) {
+                    if (book.isLiked == true) {
                         bookmarkRepository.removeBookmark(book.id)
                     } else {
                         bookmarkRepository.addBookmark(book)
@@ -89,17 +88,19 @@ class SearchTabViewModel
 
         private fun observeBookmarks() {
             viewModelScope.launch {
-                bookmarkRepository.getBookmarks().collectLatest {
+                bookmarkRepository.getBookmarks().collectLatest { bookmarks ->
+                    bookmarkedIds = bookmarks.map { it.id }.toSet()
+
+                    if (lastQuery.isBlank() && rawSearchBooks.isEmpty()) {
+                        return@collectLatest
+                    }
+
                     emitMergedSearchState()
                 }
             }
         }
 
-        private suspend fun emitMergedSearchState() {
-            val bookmarkedIds =
-                bookmarkRepository
-                    .getBookmarkIds()
-
+        private fun emitMergedSearchState() {
             val mergedBooks =
                 rawSearchBooks.map { book ->
                     book.copy(

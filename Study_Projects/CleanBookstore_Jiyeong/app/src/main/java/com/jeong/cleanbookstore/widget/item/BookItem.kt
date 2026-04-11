@@ -3,7 +3,6 @@ package com.jeong.cleanbookstore.widget.item
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -125,11 +124,12 @@ fun BookItem(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Box(
+                Row(
                     modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        modifier = Modifier.align(Alignment.CenterStart),
+                        modifier = Modifier.weight(1f),
                         text = book.publisher ?: "",
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.primary,
@@ -139,7 +139,6 @@ fun BookItem(
 
                     IconButton(
                         onClick = { onLikeClick(book) },
-                        modifier = Modifier.align(Alignment.CenterEnd),
                     ) {
                         Text(
                             text = if (book.isLiked == true) "♥" else "♡",

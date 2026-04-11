@@ -2,15 +2,15 @@ package com.jeong.cleanbookstore.data.mapper
 
 import android.text.Html
 import com.jeong.cleanbookstore.data.response.BookDetailResponse
-import com.jeong.cleanbookstore.model.book.BookDetailModel
+import com.jeong.cleanbookstore.model.book.BookModel
 
-fun BookDetailResponse.toDetailModel(): BookDetailModel =
-    BookDetailModel(
+fun BookDetailResponse.toModel(): BookModel =
+    BookModel(
         id = id,
         title = volumeInfo.title,
         subtitle = volumeInfo.subtitle,
         authors = volumeInfo.authors,
-        publisher = volumeInfo.publisher,
+        publisher = volumeInfo.publisher ?: publisher,
         publishedDate = volumeInfo.publishedDate,
         description = volumeInfo.description.toPlainText(),
         thumbnail = volumeInfo.imageLinks?.thumbnail.toHttps(),

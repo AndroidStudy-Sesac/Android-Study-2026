@@ -1,6 +1,6 @@
 package com.jeong.cleanbookstore.screen.detail
 
-import com.jeong.cleanbookstore.model.book.BookDetailModel
+import com.jeong.cleanbookstore.model.book.BookModel
 import com.jeong.cleanbookstore.screen.base.State
 
 sealed class BookDetailState : State {
@@ -9,7 +9,7 @@ sealed class BookDetailState : State {
     data object Loading : BookDetailState()
 
     data class Success(
-        val book: BookDetailModel,
+        val book: BookModel,
     ) : BookDetailState()
 
     data class Error(

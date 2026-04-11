@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -33,7 +32,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.jeong.cleanbookstore.model.book.BookDetailModel
+import com.jeong.cleanbookstore.model.book.BookModel
 import com.jeong.cleanbookstore.ui.component.ErrorContent
 import com.jeong.cleanbookstore.ui.component.LoadingContent
 import com.jeong.cleanbookstore.ui.theme.CleanBookstoreTheme
@@ -69,7 +68,6 @@ private fun BookDetailContent(
     onRetry: () -> Unit,
 ) {
     Scaffold(
-        modifier = Modifier.padding(paddingValues),
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
@@ -94,7 +92,16 @@ private fun BookDetailContent(
                 },
             )
         },
-    ) { innerPadding ->
+    ) { scaffoldPadding ->
+        val layoutDirection = LocalLayoutDirection.current
+        val innerPadding =
+            PaddingValues(
+                start = scaffoldPadding.calculateStartPadding(layoutDirection) + paddingValues.calculateStartPadding(layoutDirection),
+                top = scaffoldPadding.calculateTopPadding(),
+                end = scaffoldPadding.calculateEndPadding(layoutDirection) + paddingValues.calculateEndPadding(layoutDirection),
+                bottom = scaffoldPadding.calculateBottomPadding() + paddingValues.calculateBottomPadding(),
+            )
+
         when (state) {
             is BookDetailState.Uninitialized,
             is BookDetailState.Loading,
@@ -248,7 +255,7 @@ private fun DetailContent(
 @Composable
 private fun BookDetailScreenSuccessPreview() {
     val sampleBook =
-        BookDetailModel(
+        BookModel(
             id = "1",
             title = "Jetpack Compose Essentials",
             subtitle = "Modern Android UI Development",

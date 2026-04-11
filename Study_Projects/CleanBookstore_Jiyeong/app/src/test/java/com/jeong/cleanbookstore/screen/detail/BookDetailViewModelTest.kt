@@ -2,7 +2,7 @@ package com.jeong.cleanbookstore.screen.detail
 
 import androidx.lifecycle.SavedStateHandle
 import com.jeong.cleanbookstore.data.repository.BookSearchRepository
-import com.jeong.cleanbookstore.model.book.BookDetailModel
+import com.jeong.cleanbookstore.model.book.BookModel
 import com.jeong.cleanbookstore.rule.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -50,7 +50,7 @@ class BookDetailViewModelTest {
             // Given
             val bookId = "book-1"
             val detailModel =
-                BookDetailModel(
+                BookModel(
                     id = bookId,
                     title = "Android Internals",
                     subtitle = "Deep Dive",

@@ -20,4 +20,6 @@ data class BookModel(
     val previewLink: String?,
     val infoLink: String?,
     val isLiked: Boolean? = null,
+    val pageCount: Int? = null,
+    val categories: List<String> = emptyList(),
 )

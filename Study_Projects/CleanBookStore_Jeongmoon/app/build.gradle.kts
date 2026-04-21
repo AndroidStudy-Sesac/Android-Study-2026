@@ -44,6 +44,8 @@ kotlin {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(project(":feature"))
+    implementation(project(":shared"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.bundles.runtime.lifecycle.libraries)
@@ -51,6 +53,18 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose.libs)
 
+    // Coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
+    // Room
+    implementation(libs.bundles.room.libraries)
+    ksp(libs.androidx.room.compiler){
+        exclude(group = "com.intellij", module = "annotations")
+    }
+
+    // Retrofit & OkHttp
+    implementation(libs.bundles.retrofit.okhttp)
 
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

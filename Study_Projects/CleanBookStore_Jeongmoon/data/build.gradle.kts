@@ -1,6 +1,14 @@
+import java.util.Properties
+
+val properties = Properties()
+val localPropertiesFile = project.rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    properties.load(localPropertiesFile.inputStream())
+}
+val apiKey = properties.getProperty("GOOGLE_BOOKS_API_KEY") ?: ""
+
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.android.ksp)
 }
 
@@ -15,6 +23,12 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField("String", "GOOGLE_BOOKS_API_KEY", "\"$apiKey\"")
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -42,10 +56,19 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
+    implementation(libs.kotlinx.coroutines.core)
+
+    // Room
     implementation(libs.bundles.room.libraries)
     ksp(libs.androidx.room.compiler){
         exclude(group = "com.intellij", module = "annotations")
     }
+
+    // Retrofit & OkHttp
+    implementation(libs.bundles.retrofit.okhttp)
+
+    // Gson
+    implementation(libs.gson)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

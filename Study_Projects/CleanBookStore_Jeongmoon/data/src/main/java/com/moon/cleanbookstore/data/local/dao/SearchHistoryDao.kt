@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.moon.cleanbookstore.data.local.entity.SearchHistoryEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SearchHistoryDao {

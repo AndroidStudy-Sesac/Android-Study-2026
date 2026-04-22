@@ -110,7 +110,7 @@ private fun SearchContent(
         when (state) {
             is SearchTabState.Uninitialized -> {
                 EmptyContent(
-                    message = "검색어를 입력해 주세요.",
+                    message = "책을 검색해보세요",
                 )
             }
 
@@ -123,9 +123,9 @@ private fun SearchContent(
                     EmptyContent(
                         message =
                             if (state.searchKeyword.isBlank()) {
-                                "검색 결과가 없습니다."
+                                "책을 검색해보세요"
                             } else {
-                                "\"${state.searchKeyword}\"에 대한 검색 결과가 없습니다."
+                                "검색 결과가 없습니다."
                             },
                     )
                 } else {

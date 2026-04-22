@@ -1,0 +1,309 @@
+package com.jeong.cleanbookstore.screen.detail
+
+import android.content.res.Configuration
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.jeong.cleanbookstore.model.book.BookModel
+import com.jeong.cleanbookstore.ui.component.ErrorContent
+import com.jeong.cleanbookstore.ui.component.LoadingContent
+import com.jeong.cleanbookstore.ui.theme.CleanBookstoreTheme
+
+@Composable
+fun BookDetailScreen(
+    paddingValues: PaddingValues,
+    viewModel: BookDetailViewModel = hiltViewModel(),
+    onBackClick: () -> Unit,
+) {
+    val state by viewModel.stateFlow.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        if (state is BookDetailState.Uninitialized) {
+            viewModel.fetchData()
+        }
+    }
+
+    BookDetailContent(
+        state = state,
+        paddingValues = paddingValues,
+        onBackClick = onBackClick,
+        onRetry = viewModel::fetchData,
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun BookDetailContent(
+    state: BookDetailState,
+    paddingValues: PaddingValues,
+    onBackClick: () -> Unit,
+    onRetry: () -> Unit,
+) {
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {
+                    val title =
+                        when (state) {
+                            is BookDetailState.Success -> state.book.title
+                            else -> "Book Detail"
+                        }
+                    Text(
+                        text = title,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                        )
+                    }
+                },
+            )
+        },
+    ) { scaffoldPadding ->
+        val layoutDirection = LocalLayoutDirection.current
+        val innerPadding =
+            PaddingValues(
+                start = scaffoldPadding.calculateStartPadding(layoutDirection) + paddingValues.calculateStartPadding(layoutDirection),
+                top = scaffoldPadding.calculateTopPadding(),
+                end = scaffoldPadding.calculateEndPadding(layoutDirection) + paddingValues.calculateEndPadding(layoutDirection),
+                bottom = scaffoldPadding.calculateBottomPadding() + paddingValues.calculateBottomPadding(),
+            )
+
+        when (state) {
+            is BookDetailState.Uninitialized,
+            is BookDetailState.Loading,
+            -> {
+                LoadingContent(innerPadding)
+            }
+
+            is BookDetailState.Success -> {
+                DetailContent(
+                    state = state,
+                    innerPadding = innerPadding,
+                )
+            }
+
+            is BookDetailState.Error -> {
+                ErrorContent(
+                    message = state.message,
+                    innerPadding = innerPadding,
+                    onRetry = onRetry,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun DetailContent(
+    state: BookDetailState.Success,
+    innerPadding: PaddingValues,
+) {
+    val book = state.book
+    val layoutDirection = LocalLayoutDirection.current
+
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding =
+            PaddingValues(
+                start = innerPadding.calculateStartPadding(layoutDirection) + 16.dp,
+                top = innerPadding.calculateTopPadding() + 16.dp,
+                end = innerPadding.calculateEndPadding(layoutDirection) + 16.dp,
+                bottom = innerPadding.calculateBottomPadding() + 32.dp,
+            ),
+    ) {
+        item {
+            AsyncImage(
+                model =
+                    ImageRequest
+                        .Builder(LocalContext.current)
+                        .data(book.thumbnail)
+                        .crossfade(true)
+                        .build(),
+                contentDescription = book.title,
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(260.dp),
+                contentScale = ContentScale.Fit,
+            )
+        }
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = book.title,
+                style = MaterialTheme.typography.headlineSmall,
+            )
+        }
+        if (!book.subtitle.isNullOrBlank()) {
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = book.subtitle,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+        if (book.authors.isNotEmpty()) {
+            item {
+                Spacer(modifier = Modifier.height(12.dp))
+                Text(
+                    text = "저자: ${book.authors.joinToString()}",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
+        }
+
+        if (!book.publisher.isNullOrBlank()) {
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "출판사: ${book.publisher}",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
+        }
+        if (!book.publishedDate.isNullOrBlank()) {
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "출간일: ${book.publishedDate}",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
+        }
+
+        if (book.pageCount != null) {
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "페이지 수: ${book.pageCount}",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
+        }
+
+        if (book.categories.isNotEmpty()) {
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "카테고리: ${book.categories.joinToString()}",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
+        }
+
+        if (!book.description.isNullOrBlank()) {
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "설명",
+                    style = MaterialTheme.typography.titleMedium,
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = book.description,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true, name = "Success State")
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "Success State - Dark",
+)
+@Composable
+private fun BookDetailScreenSuccessPreview() {
+    val sampleBook =
+        BookModel(
+            id = "1",
+            title = "Jetpack Compose Essentials",
+            subtitle = "Modern Android UI Development",
+            authors = listOf("John Doe", "Jane Doe"),
+            publisher = "Sample Publisher",
+            publishedDate = "2025-01-01",
+            description =
+                "This is a comprehensive guide to building modern Android UIs using Jetpack Compose. " +
+                    "It covers everything from basic components to advanced layouts and animations.",
+            thumbnail = null,
+            previewLink = null,
+            infoLink = null,
+            pageCount = 350,
+            categories = listOf("Technology", "Programming"),
+        )
+
+    CleanBookstoreTheme {
+        BookDetailContent(
+            state = BookDetailState.Success(book = sampleBook),
+            paddingValues = PaddingValues(),
+            onBackClick = {},
+            onRetry = {},
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Loading State")
+@Composable
+private fun BookDetailScreenLoadingPreview() {
+    CleanBookstoreTheme {
+        BookDetailContent(
+            state = BookDetailState.Loading,
+            paddingValues = PaddingValues(),
+            onBackClick = {},
+            onRetry = {},
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Error State")
+@Composable
+private fun BookDetailScreenErrorPreview() {
+    CleanBookstoreTheme {
+        BookDetailContent(
+            state = BookDetailState.Error(message = "Failed to load book details."),
+            paddingValues = PaddingValues(),
+            onBackClick = {},
+            onRetry = {},
+        )
+    }
+}

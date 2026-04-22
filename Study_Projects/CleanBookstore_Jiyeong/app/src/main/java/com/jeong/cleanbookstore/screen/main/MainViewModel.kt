@@ -17,7 +17,6 @@ class MainViewModel
 
         val bottomNavItems =
             listOf(
-                BottomNavItem.New,
                 BottomNavItem.Search,
                 BottomNavItem.Bookmark,
             )

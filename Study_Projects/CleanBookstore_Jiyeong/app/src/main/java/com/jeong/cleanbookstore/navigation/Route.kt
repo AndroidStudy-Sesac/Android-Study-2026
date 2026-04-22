@@ -3,8 +3,6 @@ package com.jeong.cleanbookstore.navigation
 sealed class Route(
     val route: String,
 ) {
-    data object New : Route("new")
-
     data object Search : Route("search")
 
     data object Bookmark : Route("bookmark")
@@ -18,16 +16,12 @@ sealed class Route(
 
     fun getTabIndex(route: String?): Int =
         when (route) {
-            Route.New.route -> {
+            Route.Search.route -> {
                 0
             }
 
-            Route.Search.route -> {
-                1
-            }
-
             Route.Bookmark.route -> {
-                2
+                1
             }
 
             else -> {

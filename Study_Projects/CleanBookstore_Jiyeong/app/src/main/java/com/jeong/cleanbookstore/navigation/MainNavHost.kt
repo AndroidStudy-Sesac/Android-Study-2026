@@ -26,12 +26,6 @@ fun MainNavHost(
         navController = navController,
         startDestination = Route.Search.route,
     ) {
-        composable(Route.New.route) {
-            PlaceholderScreen(
-                text = "New Screen",
-                innerPadding = innerPadding,
-            )
-        }
         composable(Route.Search.route) {
             SearchScreen(
                 paddingValues = innerPadding,

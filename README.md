@@ -1,92 +1,269 @@
-# 🚀 Modern Android & CS Study
+# Modern Android & CS Study
 
-안드로이드 스터디입니다. 각자 공부한 개념을 기록하고 이를 공통 프로젝트에 적용하여 성장합니다.
+안드로이드 개발과 CS 기초를 함께 학습하고 기록하는 스터디 저장소입니다.  
+각자 학습한 개념을 문서로 정리하고, 학습 내용을 Android 프로젝트에 적용하며 실습 중심으로 성장하는 것을 목표로 합니다.
 
+<br>
 
-## 📌 1. 브랜치(Branch) 생성 규칙
+## 📌 Study Goals
 
-작업을 시작하기 전, 항상 `main` 브랜치를 최신화(`git pull`)한 후 작업 성격에 맞는 브랜치를 생성합니다.
+- Android 개발 핵심 개념 학습
+- Kotlin, Jetpack Compose, Android Architecture 이해
+- CS 및 개발 기초 개념 문서화
+- 학습 내용을 개인/공통 프로젝트에 적용
+- GitHub Issue, Branch, Pull Request 기반 협업 연습
+- 코드 리뷰와 문서 리뷰를 통한 개발 습관 개선
 
-* **개념 스터디 정리용:** `session회차/이름`
-* 예시: `session1/subin`, `session2/jiyoung`
+<br>
 
-
-* **🌟 공통 프로젝트 작업용:** `feat/compose-auth/본인이름`
-* 예시: `feat/compose-auth/subin`, `feat/compose-auth/jiyoung`
-
-
-* **개인 프로젝트 작업용:** `feat/프로젝트명/작업내용`
-* 예시: `feat/Orange/login-ui`, `feat/Apple/room-db`
-
-
----
-
-## 📌 2. 폴더 및 파일 구조 (중요 ⭐️)
-
-이 레포지토리는 개념 문서와 여러 개의 안드로이드 프로젝트가 함께 존재합니다. **Merge 충돌 방지 및 안드로이드 스튜디오 Gradle 에러를 막기 위해 아래 구조를 반드시 지켜주세요!**
-
-### [📂 Concepts: 개념 스터디 폴더]
-
-최상단 루트에 마크다운을 만들면 충돌이 발생합니다. **반드시 회차별 폴더 -> 본인 이름 폴더** 안에 작성하세요.
-
-### [📂 Study_Projects: 공통 실습 프로젝트 폴더]
-
-스터디 공통 과제인 로그인/회원가입 앱이 들어가는 공간입니다. **`ComposeAuth_본인이름`** 으로 각자의 안드로이드 프로젝트를 세팅합니다.
-
-
-⚠️ **주의:** 안드로이드 스튜디오에서 프로젝트를 열 때는 레포지토리 최상단이 아닌, **반드시 본인이 작업할 개별 앱 폴더(예: `ComposeAuth_Subin` 또는 `Orange`)를 직접 Open** 해야 정상적으로 빌드됩니다!
-
-**참고**
-
-1. Clone: 깃허브에 빈 레포지토리(README.md와 .gitignore만 있는 상태)를 만들고, 각자의 컴퓨터로 git clone을 받습니다.
-
-2. 개념 폴더 생성: 컴퓨터의 파일 탐색기나 바탕화면에서 클론 받은 폴더로 들어가, Concepts, session1, subin 폴더를 마우스 우클릭으로 직접 만듭니다.
-
-3. 프로젝트 생성: 안드로이드 스튜디오를 켜서 'New Project'를 누르고, 저장 경로(Save location)를 클론 받은 폴더 안의 Study_Projects/ComposeAuth_Subin으로 지정해서 프로젝트를 생성합니다.
-
-4. Push: 이제 안드로이드 스튜디오 터미널에서 git add . -> git commit -> git push를 하면, 컴퓨터에 예쁘게 만들어둔 폴더 구조 그대로 깃허브에 한 방에 쏙 올라갑니다!
+## 📁 Repository Structure
 
 ```text
-📦 Android-CS-Study
- ┣ 📂 Concepts                 
- ┃ ┣ 📂 session1               # 회차별 폴더
- ┃ ┃ ┣ 📂 subin                # 반드시 본인 이름 폴더 생성 후 작성!
- ┃ ┃ ┃ ┗ 📜 1_Lifecycle.md
- ┃ ┃ ┗ 📂 jiyoung
- ┣ 📂 Study_Projects           # 🌟 공통 프로젝트 공간
- ┃ ┣ 📂 ComposeAuth_Subin      # 수빈님의 안드로이드 스튜디오 프로젝트
- ┃ ┗ 📂 ComposeAuth_Jiyoung    # 지영님의 안드로이드 스튜디오 프로젝트
-      
-
+Android-Study-2026
+├── Concepts
+│   ├── session1
+│   ├── session2
+│   └── session3
+│
+├── Study_Projects
+│   ├── ComposeAuth_Subin
+│   ├── ComposeAuth_Jiyeong
+│   ├── ComposeAuth_Jeongmoon
+│   ├── CleanBookstore_Jiyeong
+│   ├── CleanBookStore_Jeongmoon
+│   └── BookSearch_CleanArchitecture_Subin
+│
+├── .gitignore
+└── README.md
 ```
 
----
+<br>
 
-## 📌 3. 커밋 메시지 (Commit Message) 규칙
+## 📚 Concepts
 
-스터디 저장소의 특성을 살려 직관적이고 깔끔하게 작성합니다. 영어 태그 뒤에 콜론(`:`)을 붙이고 띄어쓰기를 한 번 합니다.
+`Concepts` 폴더는 스터디에서 학습한 개념을 정리하는 공간입니다.  
+개념 문서는 반드시 회차별 폴더 안에 작성합니다.
 
-* **형식:** `태그: [분류] 작업 내용`
+```text
+Concepts
+└── session1
+    ├── subin
+    │   └── 1_Lifecycle.md
+    ├── jiyoung
+    └── jeongmoon
+```
 
-| 태그 | 설명 | 커밋 메시지 예시 |
+### 작성 규칙
+
+- 루트 경로에 개념 문서를 바로 추가하지 않습니다.
+- `Concepts/session회차/이름` 구조를 유지합니다.
+- 파일명은 학습 주제가 드러나도록 작성합니다.
+
+예시:
+
+```text
+Concepts/session1/subin/1_Lifecycle.md
+Concepts/session2/jiyoung/2_Coroutine.md
+Concepts/session3/jeongmoon/3_Room.md
+```
+
+<br>
+
+## 🧩 Study_Projects
+
+`Study_Projects` 폴더는 스터디 실습용 Android 프로젝트를 정리하는 공간입니다.  
+각 프로젝트는 독립적인 Android Studio 프로젝트로 관리합니다.
+
+```text
+Study_Projects
+├── ComposeAuth_Subin
+├── ComposeAuth_Jiyeong
+├── ComposeAuth_Jeongmoon
+└── BookSearch_CleanArchitecture_Subin
+```
+
+### Android Studio 실행 시 주의사항
+
+Android Studio에서 프로젝트를 열 때는 저장소 최상단이 아니라,  
+본인이 작업할 개별 프로젝트 폴더를 직접 열어야 합니다.
+
+예시:
+
+```text
+Study_Projects/ComposeAuth_Subin
+Study_Projects/BookSearch_CleanArchitecture_Subin
+```
+
+저장소 최상단 `Android-Study-2026`을 바로 열면 Gradle 설정이 충돌하거나 프로젝트 인식 오류가 발생할 수 있습니다.
+
+<br>
+
+## 🌿 Branch Convention
+
+작업을 시작하기 전 반드시 `main` 브랜치를 최신화한 뒤 새 브랜치를 생성합니다.
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b 브랜치명
+```
+
+| 작업 유형 | 브랜치 형식 | 예시 |
 | --- | --- | --- |
-| **docs** | 마크다운 개념 문서 작성 및 수정 | `docs: [session1] 수빈 MVVM 패턴 개념 정리` |
-| **feat** | 새로운 기능 및 UI 추가 | `feat: [ComposeAuth_Subin] 공통 TextField 슬롯 컴포넌트 추가`<br>
+| 개념 정리 | `session회차/이름` | `session1/subin` |
+| 공통 프로젝트 기능 작업 | `feat/프로젝트명/이름` | `feat/compose-auth/subin` |
+| 개인 프로젝트 작업 | `feat/프로젝트명/이름` | `feat/book-search/subin` |
+| 문서 수정 | `docs/작업내용` | `docs/readme-cleanup` |
+| 버그 수정 | `fix/프로젝트명/작업내용` | `fix/compose-auth/login-error` |
+| 리팩토링 | `refactor/프로젝트명/작업내용` | `refactor/book-search/data-layer` |
 
-<br>`feat: [Leafy] 바텀 네비게이션 추가` |
-| **fix** | 문서 오타 및 프로젝트 버그 수정 | `fix: [TypeTest-Kotlin] 결과 화면 UI 렌더링 버그 수정` |
-| **refactor** | 기능 변화 없는 코드 구조 개선 | `refactor: [TypeTest-Kotlin] 로그인 버튼 Slot API로 분리` |
-| **chore** | 폴더 생성, 파일 이동, gradle 세팅 | `chore: [Setting] 스터디 공통 규칙 및 README 세팅` |
+<br>
 
----
+## ✅ Commit Convention
 
-## 📌 4. PR (Pull Request) 및 Merge 규칙
+커밋 메시지는 아래 형식을 사용합니다.
 
-1. 깃허브에서 `main` 브랜치를 향해 PR을 생성합니다.
-2. **PR 제목은 커밋 메시지와 동일한 형식**으로 적어주세요.
-* 예: `[session1] subin 1회차 생명주기 및 Context 정리 완료`
-* 예: `[ComposeAuth_Subin] 회원가입 Room DB Insert 로직 구현`
+```text
+태그: [분류] 작업 내용
+```
 
+예시:
 
-3. 세미나(스터디 모임)에서 각자의 코드와 문서를 리뷰합니다.
-4. **최소 1명 이상의 팀원에게 `Approve`를 받은 후**, 각자의 PR을 `main` 브랜치로 **Merge** 합니다. (독단적 Merge 절대 금지!)
+```text
+docs: [session1] 수빈 Lifecycle 개념 정리
+feat: [ComposeAuth_Subin] 로그인 화면 구현
+feat: [BookSearch_CleanArchitecture_Subin] 도서 검색 앱 프로젝트 추가
+fix: [ComposeAuth_Jiyeong] 회원가입 입력 검증 오류 수정
+refactor: [CleanBookstore_Jiyeong] data layer 구조 정리
+chore: [Setting] README 규칙 정리
+```
+
+| 태그 | 의미 |
+| --- | --- |
+| `docs` | 문서 작성 및 수정 |
+| `feat` | 새로운 기능 또는 프로젝트 추가 |
+| `fix` | 버그 수정 |
+| `refactor` | 기능 변화 없는 코드 구조 개선 |
+| `chore` | 설정, 폴더 생성, 기타 작업 |
+| `test` | 테스트 코드 추가 및 수정 |
+| `style` | 코드 포맷팅, UI 스타일 수정 |
+
+<br>
+
+## 🔀 Pull Request Convention
+
+모든 작업은 `main` 브랜치로 Pull Request를 생성한 뒤 병합합니다.  
+`main` 브랜치에 직접 Push하지 않습니다.
+
+### PR 제목
+
+PR 제목은 커밋 메시지와 같은 형식을 사용합니다.
+
+```text
+feat: [ComposeAuth_Subin] 로그인 화면 구현
+docs: [session2] 지영 Coroutine 개념 정리
+feat: [BookSearch_CleanArchitecture_Subin] 도서 검색 앱 프로젝트 추가
+```
+
+### PR 본문
+
+```md
+## 작업 내용
+- 작업한 내용을 요약합니다.
+
+## 확인 사항
+- 실행 확인, 문서 확인, 테스트 여부 등을 작성합니다.
+
+## Related
+- Related #이슈번호
+```
+
+이슈를 PR 병합과 함께 닫고 싶을 때는 아래처럼 작성합니다.
+
+```md
+## Related
+- Closes #이슈번호
+```
+
+<br>
+
+## 🔍 Review & Merge Rule
+
+1. PR은 `main` 브랜치를 대상으로 생성합니다.
+2. PR 생성 전, 가능하면 최신 `main`을 작업 브랜치에 반영합니다.
+3. 스터디 시간에 각자의 코드와 문서를 함께 리뷰합니다.
+4. 최소 1명 이상의 팀원에게 확인받은 뒤 Merge합니다.
+5. 독단적으로 `main` 브랜치에 직접 Push하지 않습니다.
+
+<br>
+
+## 🛠 Android Project Rule
+
+Android 프로젝트를 추가할 때는 아래 형식을 권장합니다.
+
+```text
+Study_Projects/프로젝트명_이름
+```
+
+예시:
+
+```text
+Study_Projects/ComposeAuth_Subin
+Study_Projects/BookSearch_CleanArchitecture_Subin
+```
+
+### 커밋하지 않는 파일 및 폴더
+
+개인 로컬 설정, 빌드 산출물, IDE 설정 파일은 커밋하지 않습니다.
+
+```text
+.gradle
+.idea
+build
+app/build
+local.properties
+```
+
+### 권장 포함 파일
+
+Android 프로젝트 제출 시 아래 파일은 포함합니다.
+
+```text
+app
+gradle
+.gitignore
+build.gradle.kts
+gradle.properties
+gradlew
+gradlew.bat
+settings.gradle.kts
+README.md
+```
+
+<br>
+
+## 🧭 Study Flow
+
+1. 주차별 학습 주제를 정합니다.
+2. 각자 `Concepts/session회차/이름` 폴더에 개념을 정리합니다.
+3. 실습이 필요한 내용은 `Study_Projects` 안의 프로젝트에 적용합니다.
+4. 작업 브랜치에서 커밋 후 Pull Request를 생성합니다.
+5. 스터디 시간에 문서와 코드를 함께 리뷰합니다.
+6. 리뷰 완료 후 `main` 브랜치에 Merge합니다.
+
+<br>
+
+## 📌 Current Study Projects
+
+| Project | Description |
+| --- | --- |
+| `ComposeAuth` | Jetpack Compose 기반 로그인/회원가입 실습 프로젝트 |
+| `CleanBookStore` | 도서 검색 앱 구조화 및 아키텍처 실습 프로젝트 |
+| `BookSearch_CleanArchitecture` | Clean Architecture와 Google Books API를 활용한 도서 검색 앱 프로젝트 |
+
+<br>
+
+## 💬 Notes
+
+이 저장소는 개인 학습 기록뿐만 아니라 협업 방식도 함께 연습하기 위한 공간입니다.  
+문서화, 브랜치 전략, 커밋 컨벤션, PR 리뷰 과정을 꾸준히 지키는 것을 목표로 합니다.
